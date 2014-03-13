@@ -1,0 +1,40 @@
+#include<math.h>
+#include<iostream>
+using namespace std;
+main()
+{
+      
+      int t;
+      long l,h;
+      scanf("%d",&t);
+      while(t--)
+      {
+                scanf("%ld %ld",&l,&h);
+                bool a[100001]={0};
+                long i,j;
+                if(l<=2){l=3;if(h>=2)cout<<2<<endl;}
+                int rh=sqrt(h);
+                for(i=3;i<=rh;i+=2)
+                {
+                        long di=i*2;
+                        long xyz=l/i;
+                        if(l%i==0)xyz--;
+                        if(xyz<1)xyz=1;
+                        if(xyz%2)xyz+=1;
+                        for(j=xyz*i+i;j<=h;j+=di)
+                        a[j-l]=1;
+                        
+                        
+                                   
+                }
+                for(j=0;j<=h-l;j++)
+                        {
+                                 if(!a[j]&&(j+l)%2)cout<<j+l<<endl;         
+                        }
+                cout<<endl;
+      }
+      
+}
+                
+                
+

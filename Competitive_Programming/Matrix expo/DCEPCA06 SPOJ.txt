@@ -1,0 +1,188 @@
+#includestdio.h
+typedef long long L;
+L basic;
+L mod=1000000007;
+L powerS(L a,L p)
+{
+       if(p2)return a;
+       L ans=powerS(a,p2);
+       ans=(ansans)%mod;
+       if(p&1)ans=(aans);
+       return ans%mod;
+}
+L multiplyV(L v,L m,int size)
+{
+     L sum=0;
+     int i,j;
+     L f;
+     f=new L[size];
+     for(i=0;isize;i++)
+     {
+            f[i]=0;
+            for(j=0;jsize;j++)
+            {
+            f[i]+=v[j]m[isize+j];       
+            }
+            f[i]=f[i]%mod;
+     }
+     for(i=0;isize;i++){v[i]=f[i];sum+=f[i];}
+     return sum%mod;
+}
+void multiply(L x,L y,int size)
+{
+     int i,j,k;
+     
+     
+     
+     L f;
+     f=new L[sizesize];
+     for(i=0;isize;i++)
+        {
+            for(j=0;jsize;j++)
+            {
+                f[isize+j]=0;
+                for(k=0;ksize;k++)
+                    f[isize+j]+=(x[isize+k]y[ksize+j])%mod;
+                
+            }
+            
+        }
+     for(i=0;isizesize;i++)x[i]=f[i]%mod;
+     
+     
+     
+     
+}
+void power(L x,int p,int size)
+{
+     if(p1)
+     {
+            int i;
+            L f;
+            f=new L[sizesize];
+            for(i=0;isizesize;i++)f[i]=x[i];
+            power(f,p2,size);
+            multiply(f,f,size);
+            if(p&1){
+                    multiply(f,basic,size);
+                    }
+            for(i=0;isizesize;i++)x[i]=f[i];
+     }
+}
+
+
+L solve(int k,int n)
+{
+            if(k9)return 0;
+            if(k==9){return 1;}
+                if(k==0){
+                         
+                         if(n==2){return 90;}
+                         L answer=90;
+                         answer=powerS(10,n-2);
+                         answer=answer%mod;
+                         return answer;
+                         
+                         }
+                if(k==1){
+                         
+                         if(n==2){return 81;}
+                         L answer=81;
+                         answer=powerS(9,n-2);
+                         answer%=mod;
+                         return answer;
+                         }
+                                
+                
+               if(k5)
+                {
+                       int size=5,i,j;
+                       L ans[]={1,2,2,2,2};
+                       L x;
+                       x=new L[sizesize];
+                       basic=new L[sizesize];
+                       for(i=0;isize;i++)
+                       {
+                           for(j=0;jsize;j++)  
+                           x[isize+j]=basic[isize+j]=1;
+                           
+                       }
+                       x[4]=basic[4]=2;
+                       x[4size]=basic[4size]=2;
+                       x[4size+size-1]=basic[4size+size-1]=0;
+                       if(k2){
+                                x[3size+4]=x[4size+3]=0;
+                                basic[3size+4]=basic[4size+3]=0;
+                                if(k3){
+                                        x[2size+4]=x[3size+3]=x[4size+2]=0;
+                                        basic[2size+4]=basic[3size+3]=basic[4size+2]=0;
+                                        }
+                                }
+                       if(k4)
+                       {
+                              x[0size+3]=x[1size+4]=2;
+                              basic[0size+3]=basic[1size+4]=2;
+                              x[3size+0]=x[4size+1]=2;
+                              basic[3size+0]=basic[4size+1]=2;
+                              if(k3)
+                              {
+                                      x[0size+2]=x[1size+3]=x[2size+4]=2;
+                                      basic[0size+2]=basic[1size+3]=basic[2size+4]=2;
+                                      x[2size+0]=x[3size+1]=x[4size+2]=2;
+                                      basic[2size+0]=basic[3size+1]=basic[4size+2]=2;
+                              }
+                              
+                       }
+                      
+                       power(x,n-1,size);
+                       return multiplyV(ans,x,size)%mod;
+                       
+                }
+                
+                else
+                {
+                     L x,ans;
+                     int i,j;
+                     int size=10-k;
+                     x=new L[sizesize];
+                     basic=new L[sizesize];
+                     ans=new L[size];
+                     for(i=0;isize;i++)
+                     {
+                           ans[i]=2size-1-2i;     
+                     }
+                     
+                     for(i=0;isize;i++)
+                     {
+                           for(j=0;jsize;j++)  
+                           {if(i+jsize)x[isize+j]=basic[isize+j]=1;
+                           else x[isize+j]=basic[isize+j]=0;
+                           }
+                     }
+                     
+                     L zans;
+                     if(n2){power(x,n-2,size);
+                     zans=multiplyV(ans,x,size)%mod;
+                     }
+                     else{
+                          zans=0;
+                          for(i=0;isize;i++)zans+=ans[i];
+                          }
+                     return zans%mod;
+                }                    
+}
+
+
+main()
+{
+      int t,n,k;
+      scanf(%d,&t);
+      while(t--)
+      {
+                scanf(%d %d,&n,&k);
+                printf(%lldn,solve(k,n));
+                
+      }
+      return 0;
+}
+
